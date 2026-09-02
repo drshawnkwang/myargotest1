@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-falco-falco
+data:
+  source: "placeholder for falco.yaml"

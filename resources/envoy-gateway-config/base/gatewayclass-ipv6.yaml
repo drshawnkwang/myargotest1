@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-envoy-gw-gatewayclass-ipv6
+data:
+  source: "placeholder for gatewayclass-ipv6.yaml"

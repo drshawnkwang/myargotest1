@@ -1,0 +1,13 @@
+---
+cluster:
+  id: 1
+  name: clusterB
+
+ipam:
+  operator:
+    autoCreateCiliumPodIPPools:
+      default:
+        ipv6:
+          cidrs:
+            - 2001:400:c012:300::/64
+          maskSize: 80

@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cilium-config-snmp-pollers
+data:
+  source: "placeholder for snmp-pollers.yaml"

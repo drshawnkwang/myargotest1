@@ -1,0 +1,13 @@
+---
+# clusterName MUST match the name this cluster is registered under in ArgoCD
+# (`argocd cluster add --name <clusterName>`). It is used for:
+#   - destination.name in every ApplicationSet
+#   - the Application name prefix  (e.g. clusterB-cert-manager)
+#   - the Helm values path         (clusters/clusterB/<chart>-values.yaml)
+#   - the resources path           (resources/<app>/clusterB/)
+#
+# PLACEHOLDER: rename to the real cluster name (e.g. nexus-lbl, nexus-hal,
+# nexus-staging, softlab) when this cluster is provisioned. Renaming means
+# renaming this directory AND every resources/*/clusterB/ directory.
+clusterName: clusterB
+environment: staging

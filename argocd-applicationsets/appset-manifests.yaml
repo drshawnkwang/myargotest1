@@ -1,0 +1,61 @@
+---
+# appset-manifests: PE toolset configuration manifests, deployed to EVERY cluster.
+#
+# This ApplicationSet is intentionally a cartesian product (all clusters x all
+# apps). Every app listed here is part of the PE toolset and is expected on
+# every cluster.
+#
+# Adding an app requires BOTH a catalog entry below AND a
+# resources/<app>/<cluster>/ directory.
+#
+# The catalog is deliberate. A git directory generator would remove it, but a
+# directory path cannot supply spec.project (the ArgoCD AppProject / RBAC
+# boundary), so the catalog stays. See plans/06-argocd-structure-v1.1.md.
+#
+# Software that should NOT be on every cluster does not belong here.
+# See argocd-applications/README.md for one-off deployments.
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: appset-manifests
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - matrix:
+        generators:
+          - git:
+              repoURL: 'https://github.com/drshawnkwang/myargotest1.git'
+              revision: HEAD
+              files:
+                - path: 'clusters/*/cluster.yaml'
+          - list:
+              elements:
+                - appName: cilium-config
+                  namespace: kube-system
+                  project: default
+                - appName: envoy-gateway-config
+                  namespace: envoy-gateway-system
+                  project: default
+                - appName: falco
+                  namespace: falco-operator
+                  project: default
+  template:
+    metadata:
+      name: '{{.clusterName}}-{{.appName}}'
+    spec:
+      project: '{{.project}}'
+      sources:
+        - repoURL: 'https://github.com/drshawnkwang/myargotest1.git'
+          targetRevision: HEAD
+          path: 'resources/{{.appName}}/{{.clusterName}}'
+      destination:
+        name: '{{.clusterName}}'
+        namespace: '{{.namespace}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: true

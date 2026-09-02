@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cilium-config-in-cluster-node-pool
+data:
+  source: "placeholder for node-pool.yaml"

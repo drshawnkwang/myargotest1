@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cilium-config-aap-job-runners
+data:
+  source: "placeholder for aap-job-runners.yaml"

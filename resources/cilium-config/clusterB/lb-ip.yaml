@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cilium-config-clusterb-lb-ip
+data:
+  source: "placeholder for lb-ip.yaml"

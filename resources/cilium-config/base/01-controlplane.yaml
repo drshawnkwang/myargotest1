@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cilium-config-01-controlplane
+data:
+  source: "placeholder for 01-controlplane.yaml"

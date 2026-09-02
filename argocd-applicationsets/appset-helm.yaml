@@ -1,0 +1,58 @@
+---
+# appset-helm: PE toolset Helm charts, deployed to EVERY cluster.
+#
+# This ApplicationSet is intentionally a cartesian product (all clusters x all
+# charts). Every chart listed here is part of the PE toolset and is expected on
+# every cluster.
+#
+# Software that should NOT be on every cluster does not belong here.
+# See argocd-applications/README.md for one-off deployments.
+#
+# ELEMENTS EMPTIED FOR TEST: no Helm charts are deployed in this test.
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: appset-helm
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - matrix:
+        generators:
+          - git:
+              repoURL: 'https://github.com/drshawnkwang/myargotest1.git'
+              revision: HEAD
+              files:
+                - path: 'clusters/*/cluster.yaml'
+          - list:
+              elements: []
+  template:
+    metadata:
+      name: '{{.clusterName}}-{{.chartName}}'
+    spec:
+      project: '{{.project}}'
+      sources:
+        - repoURL: 'https://github.com/drshawnkwang/myargotest1.git'
+          targetRevision: HEAD
+          path: 'resources/{{.chartName}}-extras/{{.clusterName}}'
+        - repoURL: '{{index . "upstream-repo"}}'
+          chart: '{{index . "upstream-chart"}}'
+          targetRevision: '{{index . "upstream-vers"}}'
+          helm:
+            ignoreMissingValueFiles: true
+            valueFiles:
+              - '$values/clusters/base/{{.chartName}}-values.yaml'
+              - '$values/clusters/{{.clusterName}}/{{.chartName}}-values.yaml'
+        - repoURL: 'https://github.com/drshawnkwang/myargotest1.git'
+          targetRevision: HEAD
+          ref: values
+      destination:
+        name: '{{.clusterName}}'
+        namespace: '{{.namespace}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: true

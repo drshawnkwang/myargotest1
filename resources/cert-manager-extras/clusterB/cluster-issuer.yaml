@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cert-manager-extras-clusterb-issuer
+data:
+  source: "placeholder for cluster-issuer.yaml"

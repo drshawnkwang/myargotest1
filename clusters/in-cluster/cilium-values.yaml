@@ -1,0 +1,13 @@
+---
+cluster:
+  id: 2
+  name: clusterA
+
+ipam:
+  operator:
+    autoCreateCiliumPodIPPools:
+      default:
+        ipv6:
+          cidrs:
+            - 2001:400:c110:300::/64
+          maskSize: 80

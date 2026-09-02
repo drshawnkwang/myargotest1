@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-envoy-gw-envoyproxy
+data:
+  source: "placeholder for envoyproxy.yaml"

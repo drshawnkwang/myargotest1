@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cilium-config-bgp-advertise
+data:
+  source: "placeholder for bgp_advertise.yaml"

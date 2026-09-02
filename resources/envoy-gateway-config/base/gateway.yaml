@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-envoy-gw-gateway
+data:
+  source: "placeholder for gateway.yaml"

@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-envoy-gw-refgrant
+data:
+  source: "placeholder for RefGrant.yaml"

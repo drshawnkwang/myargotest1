@@ -1,0 +1,12 @@
+---
+splunkPlatform:
+  endpoint: https://hec.es.net:443/
+  index: containers
+
+secret:
+  create: false
+  name: splunk-hectoken
+  validateSecret: false
+
+tolerations:
+  - operator: Exists

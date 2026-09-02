@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cilium-config-ssh-gw-hosts
+data:
+  source: "placeholder for ssh-gw-hosts.yaml"

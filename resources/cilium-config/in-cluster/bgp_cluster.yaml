@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cilium-config-in-cluster-bgp-cluster
+data:
+  source: "placeholder for bgp_cluster.yaml"

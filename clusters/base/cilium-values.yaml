@@ -1,0 +1,32 @@
+---
+ipv4:
+  enabled: false
+ipv6:
+  enabled: true
+
+bgpControlPlane:
+  enabled: true
+endpointRoutes:
+  enabled: true
+hostFirewall:
+  enabled: true
+
+hubble:
+  relay:
+    enabled: true
+
+kubeProxyReplacement: true
+routingMode: native
+
+k8sServiceHost: localhost
+k8sServicePort: 6444
+
+enableIPv6Masquerade: false
+
+ipam:
+  mode: multi-pool
+
+clustermesh:
+  apiserver:
+    service:
+      allocateLoadBalancerNodePorts: false

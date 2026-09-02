@@ -1,0 +1,46 @@
+---
+# appset-oneoffs: software deployed to SPECIFIC clusters, not fleet-wide.
+#
+# Unlike appset-helm and appset-manifests, this ApplicationSet does not use a
+# matrix generator. Each element explicitly names its destination cluster, so
+# there is no cartesian product. Add an element to deploy; remove it to prune.
+#
+# Values files for one-offs live in oneoffs/, keeping them out of the
+# clusters/<cluster>/ tree which is reserved for fleet-wide chart overlays.
+#
+# EXCEPTION: ArgoCD itself is NOT managed here. See argocd-applications/.
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: appset-oneoffs
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - list:
+        elements: []
+  template:
+    metadata:
+      name: '{{.destCluster}}-{{.name}}'
+    spec:
+      project: '{{.project}}'
+      sources:
+        - repoURL: '{{index . "upstream-repo"}}'
+          chart: '{{index . "upstream-chart"}}'
+          targetRevision: '{{index . "upstream-vers"}}'
+          helm:
+            valueFiles:
+              - '$values/{{index . "values-path"}}'
+        - repoURL: 'https://github.com/drshawnkwang/myargotest1.git'
+          targetRevision: HEAD
+          ref: values
+      destination:
+        name: '{{.destCluster}}'
+        namespace: '{{.namespace}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: true

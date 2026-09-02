@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cilium-config-02-ssh
+data:
+  source: "placeholder for 02-ssh.yaml"
