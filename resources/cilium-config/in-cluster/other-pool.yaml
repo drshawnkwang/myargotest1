@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: test-cilium-config-in-cluster-node-pool
+  name: test-cilium-config-in-cluster-other-pool
 data:
   source: "in-cluster other-pool.yaml"
   bar: "this is for in-cluster only"
