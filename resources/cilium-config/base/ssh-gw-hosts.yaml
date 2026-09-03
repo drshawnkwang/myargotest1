@@ -5,3 +5,4 @@ metadata:
   name: test-cilium-config-ssh-gw-hosts
 data:
   source: "placeholder for ssh-gw-hosts.yaml"
+  foo: "ssh settings go here"

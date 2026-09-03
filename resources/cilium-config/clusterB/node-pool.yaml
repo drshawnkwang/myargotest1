@@ -5,3 +5,4 @@ metadata:
   name: test-cilium-config-clusterb-node-pool
 data:
   source: "placeholder for node-pool.yaml"
+  pippo: "this is for cluster B only"
